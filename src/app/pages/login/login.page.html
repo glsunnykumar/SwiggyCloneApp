@@ -1,0 +1,63 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">login</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <ion-avatar>
+    <ion-img src="assets/imgs/1.jpg"></ion-img>
+  </ion-avatar>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  
+  <ion-list lines="none">
+    <ion-item color="light" class="ion-margin-bottom">
+      <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+      <ion-input type="email" name="email" email ngModel #emailCtrl="ngModel" required placeholder="email"></ion-input>
+
+    </ion-item>
+    <ion-text class="errorMsg" color="danger" *ngIf="!emailCtrl.valid && emailCtrl.touched">
+      <p>* Please enter a valid email address</p>
+    </ion-text>
+    <ion-item class="ion-margin-bottom">
+      <ion-icon name="key" slot="start" color="primary"></ion-icon>
+      <ion-icon color="primary" slot="end" color="primary" (click)="changeType()"
+        [name]="type ? 'eye-outline' : 'eye-off-outline'">
+      </ion-icon>
+      <ion-input [type]="type === true ? 'password' :'text' " name="password" ngModel #passwordCtrl="ngModel" required
+        placeholder="password" required minlength="5"></ion-input>
+    </ion-item>
+
+    <ion-text class="errorMsg" color="danger" *ngIf="!passwordCtrl.valid && passwordCtrl.touched">
+      <p>* Password must of 8 character long</p>
+    </ion-text>
+  </ion-list>
+  <div class="ion-text-right" >
+    <p routerLink="/login/forgot-password">Forgot Password?</p>
+  </div>
+
+  <ion-button *ngIf="!isLogin" [disabled]="!f.valid" expand="block" color="primary" type="submit" shape="round">Sign In
+  </ion-button>
+
+  <div class="ion-text-center" *ngIf="isLogin">
+
+    <ion-button  shape="round" [disabled]="!f.valid">
+      <ion-spinner name="circles"></ion-spinner>
+    </ion-button>
+  </div>
+</form>
+
+<ion-text color="primary" class="ion-text-center" routerLink="/login/signup">
+  
+  <p class="ion-text-center Signup" >
+    Don't have account
+    <b>Sign Up</b>
+  </p>
+</ion-text>
+</ion-content>

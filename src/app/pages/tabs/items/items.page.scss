@@ -1,0 +1,49 @@
+
+.veg{
+    text-align: center;
+}
+
+ion-toggle{
+    margin-left: 10px;
+}
+
+.quantity{
+    width:2rem;
+}
+
+ion-item{
+    ion-text{
+        font-size: 0.8rem !important;
+    }
+    ion-label{
+        font-size: 0.8rem !important;
+    }
+    h5{
+        font-weight :bold;
+    }
+}
+
+ion-list-header{
+    font-size:1rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+
+
+ion-text{
+    font-size: 0.85rem;
+    p{
+        padding-top: 0.2rem;
+    }
+}
+
+ion-footer{
+    h4,p{
+        margin-left: 3%;
+    }
+    p{
+        font-size :0.6rem !important;
+        letter-spacing: 0.5px;
+    }
+}

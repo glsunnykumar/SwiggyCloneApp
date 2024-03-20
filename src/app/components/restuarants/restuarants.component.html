@@ -1,0 +1,28 @@
+
+  <ion-item lines="none">
+    <ion-thumbnail slot="start">
+      <img [src]="restuarants?.cover ? restuarants.cover :'assets/imgs/2.jpg'" />
+    </ion-thumbnail>
+    <ion-label>
+      <h4>{{restuarants.name}}</h4>
+      <ion-text color="medium">
+        <p class="pStyle"> 
+          {{getCuisine(restuarants?.cuisines)}}
+        </p>
+        <ion-text color="dark">
+          <span>
+            <ion-icon name="star"></ion-icon>
+            {{restuarants?.rating}}.
+          </span>
+          {{restuarants.delivery_time}} for {{restuarants?.price}} for two
+        </ion-text>
+     
+        <ion-text color="tertiary" *ngIf="restuarants?.distance && restuarants?.distance !==0">
+          <p class="distance">
+            {{restuarants.distance | number :'0.0-2'}} kms away
+          </p>
+        </ion-text>
+      </ion-text>
+    </ion-label>
+  </ion-item>
+  

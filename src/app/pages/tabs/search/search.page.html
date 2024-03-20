@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-searchbar
+    animated="true"
+    debounce="400"
+    #searchInput
+    placeholder="Custom Placeholder"
+    (ionInput)="onSearchChange($event)"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <app-loading-restuarants *ngIf="isLoading"></app-loading-restuarants>
+  <app-empty-screen *ngIf="!isLoading && (restuarants?.length ===0 || query?.length===0)" [model]="model"></app-empty-screen>
+  
+  <ion-list *ngIf="!isLoading && restuarants.length>0">
+    <ion-list-header>
+      <ion-label>
+        <h4>Search result for "{{query}}"</h4>
+      </ion-label>
+    </ion-list-header>
+    <app-restuarants
+    *ngFor="let restuarant of restuarants"
+    [restuarants]="restuarant"
+    [routerLink]="['/','tabs','restuarants',restuarant.uid]"
+    ></app-restuarants>
+  </ion-list>
+</ion-content>

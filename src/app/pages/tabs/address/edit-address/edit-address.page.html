@@ -1,0 +1,89 @@
+<ion-header [translucent]="true" >
+  <ion-toolbar>
+    <ion-title ><ion-label color="dark">MANAGE ADDRESS </ion-label></ion-title>
+    <ion-buttons slot="start" mode="md">
+      <ion-back-button defaultHref="/tabs/address"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="map" *ngIf="!isLoading" > <app-map (location)="fetchLocation($event)"></app-map></div>
+  <div *ngIf="isLoading" class="ion-text-center alignSpinner">
+  <ion-spinner color="primary"></ion-spinner>
+  </div>
+ 
+ <form [formGroup]="form" *ngIf="!isLoading">
+  
+<ion-list>
+  <ion-item lines="none">
+    <ion-icon slot="start" icon="location-outline"></ion-icon>
+    <ion-label>{{location.title}}</ion-label>
+    <ion-button slot="end" size="small" color="light" (click)="changeLocation()">
+     
+    <span>CHANGE</span> 
+    </ion-button>
+  
+  </ion-item>
+  <ion-row class="ion-padding-horizontal ion-text-justify">
+    <ion-note class="ion-text-wrap ion-padding-horizontal">
+      {{location.address}}
+    </ion-note>
+  </ion-row>
+    <ion-item-group class="ion-padding">
+      <ion-item >
+        <ion-input id="house" 
+        label=" HOUSE /FLAT /BLOCK NO" 
+        labelPlacement="floating"
+          type="text" autocomplete="true" 
+           formControlName="house">
+          </ion-input>
+        <ion-icon name="checkmark-outline" 
+        slot="end"
+         color="primary"
+         *ngIf="form.get('house').valid"
+         >
+      
+      </ion-icon>
+      </ion-item>
+      <ion-item >
+        <ion-input  label="LandMark" labelPlacement="floating"  type="text" autocomplete="LandMark"  formControlName="landmark"></ion-input>
+        <ion-icon name="checkmark-outline" 
+        slot="end"
+         color="primary"
+         *ngIf="form.get('landmark').valid"
+         >
+      
+      </ion-icon>
+      </ion-item>
+      <ion-item  >
+        <ion-input id="save" label="SaveAs" labelPlacement="floating"  type="text" autocomplete="true"  formControlName="title"></ion-input>
+        <ion-icon name="checkmark-outline" 
+        slot="end"
+         color="primary"
+         *ngIf="form.get('title').valid"
+         >
+      
+      </ion-icon>
+      </ion-item>
+    </ion-item-group>
+ 
+</ion-list>
+<div class="ion-padding-horizontal">
+  <ion-button expand="block" 
+  *ngIf="!isSubmitted"
+  type="submit" 
+  [disabled]="!form.valid"
+  color="primary"
+   (click)="onSubmit()">Save As</ion-button>
+
+   <ion-button expand="block" 
+   *ngIf="isSubmitted"
+   [disabled]="!form.valid"
+   color="primary"
+    >
+  <ion-spinner name="crescent"></ion-spinner>
+  </ion-button>
+</div>
+</form>
+</ion-content>

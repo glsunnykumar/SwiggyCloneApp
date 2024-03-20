@@ -1,0 +1,62 @@
+<ion-header [translucent]="true" >
+  <ion-toolbar>
+    <ion-title>items on tOP</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">items</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <app-restuarant-detail [data]="data" [isLoading]="isLoading"></app-restuarant-detail>
+ 
+  <ion-row class="ion-padding veg borderbottomSmall">
+    <ion-label>Veg Only on Items page</ion-label>
+
+    <ion-toggle color="success" (ionChange)="vegOnly($event)" [(ngModel)]="veg"></ion-toggle>
+  </ion-row>
+  <app-loading-restuarants *ngIf="isLoading"></app-loading-restuarants>
+  <app-empty-screen [model]="model" *ngIf="!isLoading && categories?.length ===0"></app-empty-screen>
+  <ion-list lines="none" *ngFor="let category of categories">
+    <ion-list-header>
+      {{category?.name}}
+    </ion-list-header>
+
+    <ng-container *ngFor="let item of items;let i=index">
+      <app-item 
+      *ngIf="category.id === item.category_id" 
+      [item]="item" 
+      [index]="i" 
+      (add)="quantityPlus($event)"
+      (minus)="quantityMinus($event)">
+    </app-item>
+    </ng-container>
+
+  </ion-list>
+</ion-content>
+
+
+<ion-footer [translucent]="true" *ngIf="cartData?.totalItem>0">
+  <ion-toolbar color="success">
+    <ion-label>
+      <h4> {{cartData?.totalItem}}Item <span *ngIf="cartData?.totalItem>1">s</span> | ₹ {{cartData?.totalPrice |number :'0.2-2'}}</h4>
+      <ion-text color="light">
+        <p>Extra Charge may apply</p>
+      </ion-text>
+    </ion-label>
+
+    <ion-button slot="end" fill="clear" color="white" (click)="viewCart()">
+      <ion-icon slot="end" name="basket-outline">
+
+      </ion-icon>
+      View Cart
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
+
+
