@@ -11,6 +11,19 @@
         }
     }
 
+    ion-label{
+        ion-text{
+            font-size: 0.9rem !important;
+            font-weight: bold;
+        }
+        p{
+            font-size: 0.7rem !important;
+        }
+        ion-text,p{
+         max-width: 25vh !important;
+        }
+    }
+
     ion-row{
         border: 1px solid var(--ion-color-medium);
         border-radius: 2px;

@@ -1,9 +1,9 @@
 <ion-item >
   <ion-thumbnail slot="start">
-<img [src]="item?.cover ? item.cover :'assests/img/1.jpg'" />
+<img [src]="item?.cover ? item.cover :fallbackImage" onerror="this.onerror=null;this.src=fallbackImage" />
   </ion-thumbnail>
-  <ion-label>
-    <h4>{{item?.name}}</h4>
+  <ion-label class="ion-text-wrap ">
+    <ion-text>{{item?.name}}</ion-text>
     <p class="ion-text-wrap">{{item?.desc}}</p>
     <ion-text>
       <p>{{item?.price | number :'0.2-2'}}</p>

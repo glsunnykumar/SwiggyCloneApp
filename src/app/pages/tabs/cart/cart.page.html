@@ -14,7 +14,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- <app-empty-screen *ngIf="! model?.restuarant"></app-empty-screen> -->
+  <app-empty-screen *ngIf="!model?.restaurant" (model)="this.model"></app-empty-screen>
   
   <ng-container *ngIf="model?.restaurant">
     <ion-list lines="none" class="borderbottom">

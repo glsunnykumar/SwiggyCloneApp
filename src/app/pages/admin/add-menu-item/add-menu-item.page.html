@@ -1,0 +1,166 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Add Menu Item</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">add-menu-item</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <form #f1="ngForm" (ngSubmit)="onSubmit(f1)">
+
+    <ion-list lines="none">
+
+      <ion-item>
+         <ion-select 
+         (ionChange) =changeRestaurant($event)
+         label="Select Restaurant" label-placement="floating"
+         interface="popover"
+          name="restaurant_id" 
+          ngModel
+           #restaurant_id="ngModel"
+            required
+           >
+         <ion-select-option 
+          *ngFor="let restaurant of restaurants"
+          [value]="restaurant.uid">
+          {{restaurant?.name}}
+        </ion-select-option>
+         </ion-select>
+       </ion-item>
+
+       <ion-text class="errorMsg" color="danger" *ngIf="!restaurant_id.valid && restaurant_id.touched">
+        <p>* Please select a Restuarant</p>
+      </ion-text>
+
+      <div *ngIf="categories.length>0">
+        <ion-item >
+          <ion-select 
+          label="Select Category" label-placement="floating"
+           name="category_id" 
+           [(ngModel)]="category"
+            #category_id="ngModel"
+             required
+            >
+          <ion-select-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+  
+        <ion-text class="errorMsg" color="danger" *ngIf="!category_id.valid && category_id.touched">
+          <p>* Please select a category</p>
+        </ion-text>
+      </div>
+
+      
+     
+      <ion-item >
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input type="text" 
+        name="name" 
+        ngModel 
+        #name="ngModel" 
+        required placeholder="Item Name">
+        </ion-input>
+      
+      </ion-item>
+      <ion-text class="errorMsg" color="danger" *ngIf="!name.valid && name.touched">
+        <p>* Please enter a Item Name</p>
+      </ion-text>  
+
+      <ion-item >
+       
+        <ion-textarea type="text" name="description"  ngModel #descriptionCtrl="ngModel" 
+          placeholder="Enter Item Description"></ion-textarea>
+
+      </ion-item>
+      
+      
+      <ion-item >
+        <ion-icon name="cash-outline" slot="start" color="primary"></ion-icon>
+        <ion-input type="number" 
+        name="price" 
+        ngModel 
+        #price="ngModel" 
+        required placeholder="Item Price">
+        </ion-input>
+      
+      </ion-item>
+      <ion-text class="errorMsg" color="danger" *ngIf="!price.valid && price.touched">
+        <p>* Please enter valid Item Price</p>
+      </ion-text>
+      
+      
+      <ion-item >
+        <ion-label>Veg</ion-label>
+        <ion-toggle 
+        slot="end"
+        name="veg"
+        [(ngModel)]="veg" >
+        </ion-toggle>
+      
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Status</ion-label>
+        <ion-toggle slot="end" name="status" [(ngModel)]="status"></ion-toggle>
+      </ion-item>
+
+      <div class="itemImage" 
+      *ngIf="!image || image ===''"  (click)="changeImage()">
+        <ion-icon
+         name="cloud-upload-outline" color="primary"
+        ></ion-icon>
+        <p>Upload Item IMage Here</p>
+    
+      </div>
+
+      <input type="file" accept="image/jpeg" 
+      #filePicker (change)="onFileChosen($event)">
+
+      <div class="itemImage imageDiv" 
+      (click)="changeImage()"
+      *ngIf="image && image !==''">
+      <ion-img [src]="image"></ion-img>
+      </div>
+      <!-- <ion-text class="errorMsg" color="danger" *ngIf="!c_passwordCtrl.valid && c_passwordCtrl.touched">
+        <p>*confirm password must be of 8 character long</p>
+      </ion-text>
+
+      <ion-text class="errorMsg" color="danger" *ngIf="!c_passwordCtrl.valid && c_passwordCtrl.value !== passwordCtrl.value">
+        <p>*confirm password must be of 8 character long</p>
+      </ion-text> -->
+
+    </ion-list>
+
+   
+
+    <ion-button 
+    *ngIf="!isLoading" 
+     [disabled]="!f1.valid"
+     expand="block" 
+     color="primary" 
+     type="submit" 
+     shape="round">
+      Save
+    </ion-button>
+
+    <div class="ion-text-center" *ngIf="isLoading">
+
+      <ion-button shape="round"
+      [disabled]="!f1.valid"
+       >
+        <ion-spinner name="circles"></ion-spinner>
+      </ion-button>
+    </div>
+  </form>
+
+
+</ion-content>

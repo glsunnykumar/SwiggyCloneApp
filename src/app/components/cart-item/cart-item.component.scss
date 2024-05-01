@@ -4,6 +4,18 @@
     margin-right: 2vw;
 }
 
+ion-label{
+    font-size: 0.8rem !important;
+    font-weight: bold;
+}
+
+ion-row{
+    border: 1px solid var(--ion-color-medium);
+    border-radius: 2px;
+    padding: 0.3rem;
+    margin-right: 0.9vw;
+}
+
 ion-item{
     letter-spacing: 0.5px;
    

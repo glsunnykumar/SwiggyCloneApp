@@ -14,7 +14,7 @@ export const environment = {
       measurementId: "G-FVSMX17SVG"
     },
   
-  googleMapsApiKey :'',
+  googleMapsApiKey :'AIzaSyC33PZwVpqG0FNCY9X1bP5m-RC1AHFOzmE',
 };
 
 /*

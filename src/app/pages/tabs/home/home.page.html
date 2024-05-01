@@ -28,6 +28,10 @@
       <p>Discover Unique Tastes Near You</p>
     </ion-label>
   </ion-list-header>
+<ion-text *ngIf="restaurants?.length===0" color="danger" class="ion-text-center">
+  <p>No Restaurant Near you</p>
+</ion-text>
+
   <ion-item-group *ngIf="restaurants.length>0">
     <app-restuarants *ngFor="let restuarant of restaurants" 
     [restuarants]="restuarant"

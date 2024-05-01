@@ -62,6 +62,24 @@ export class AccountPage implements OnInit,OnDestroy {
     this.isLoading = false;
   }
 
+  confirmLogout(){
+    this.global.showAlert(
+      'Are you Sure to sign out',
+      'Confirm',
+      [{
+        text :'No',
+        role :'cancel'
+      },
+       {
+        text :'yes',
+        handler :()=>{
+          this.logout();
+        }
+       }
+    ]
+    );
+  }
+
   logout(){
     this.global.showLoader();
     this.authService.logOut().then(()=>{

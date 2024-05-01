@@ -71,6 +71,7 @@ export class GlobalService {
   hideLoader() {
     // this.isLoading = false;
     if(this.isLoading) this.setLoader();
+    
     return this.loadingCtrl.dismiss()
     .then(() => console.log('dismissed'))
     .catch(e => console.log('error hide loader: ', e));
@@ -86,7 +87,6 @@ export class GlobalService {
 
   modalDismiss(val?) {
     let data: any = val ? val : null;
-    console.log('data', data);
     this.modalCtrl.dismiss(data);
   }
 

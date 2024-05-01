@@ -37,22 +37,20 @@ export class CartPage implements OnInit ,OnDestroy {
     private cartService :CartService,
     private addService :AddressService
     ) { }
+
   ngOnDestroy(): void {
     if(this.addressSub)this.addressSub.unsubscribe();
     if(this.cartSub)this.cartSub.unsubscribe();
-    throw new Error('Method not implemented.');
   }
-
-
- 
 
   async ngOnInit() {
     await this.getCartData();
     this.addressSub = this.addService.changeAddress.subscribe(async (address) =>{
       this.location = address;
       if(this.location?.lat){
-        const radius= this.addService.radius;
-        const result= this.cartService.checkCart(this.location.lat,this.location.lng,radius);
+        const radius= this.orderService.getRadius();
+        const result=await this.cartService.checkCart(this.location.lat,this.location.lng,radius);
+       
         if(result){
           this.globalService.errorToast
           ('Your Location is to far from restuarant in cart! Kindly search for other restuarant nearby',
@@ -70,11 +68,6 @@ export class CartPage implements OnInit ,OnDestroy {
     
   }
 
-  // ngOnDestroy() {
-  //   if(this.addressSub)this.addressSub.unsubscribe();
-  //   if(this.cartSub)this.cartSub.unsubscribe();
-  //   throw new Error('Method not implemented.');
-  // }
 
  
 
@@ -161,7 +154,7 @@ export class CartPage implements OnInit ,OnDestroy {
   async makePayement(){
     try{
          const data :Order ={
-          restaurant_id  : this.model.restaurant.id,
+          restaurant_id  : this.model.restaurant.uid,
           restaurant : this.model.restaurant,
           instruction : this.instructions? this.instructions : ' ',
           order : this.model.items,//JSON.stringify(this.model.items),
@@ -173,7 +166,8 @@ export class CartPage implements OnInit ,OnDestroy {
           status :'create',
           paid :'COD'
          }
-
+        
+         console.log('data',data);
          await this.orderService.placeOrder(data);
          //clear cart
          this.cartService.clearCart();

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './guard/auth.guard';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { AutoLoginGuard } from './guards/auto-login/auto-login.guard';
 
 const routes: Routes = [
  
@@ -12,15 +13,23 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule),
-    canLoad:[AuthGuard]
+    canLoad:[AuthGuard],
+    data :{
+      type :'user'
+    }
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    canLoad:[AutoLoginGuard]
   },
   {
     path: 'admin',
-    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
+    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule),
+    canLoad:[AuthGuard],
+    data :{
+      type :'admin'
+    }
   },
   
 ];

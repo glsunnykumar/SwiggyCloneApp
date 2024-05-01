@@ -1,0 +1,229 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Add Restuarant</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">login</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+
+  <form #f1="ngForm" (ngSubmit)="onSubmit(f1)">
+
+    <ion-list lines="none">
+      <ion-list-header>
+        <ion-label>Owner Details</ion-label>
+      </ion-list-header>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input type="text" name="name" ngModel #name="ngModel" required placeholder="name"></ion-input>
+
+      </ion-item>
+      <ion-text class="errorMsg" color="danger" *ngIf="!name.valid && name.touched">
+        <p>* Please enter a name</p>
+      </ion-text>
+
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+        <ion-input type="email" name="email" email ngModel #emailCtrl="ngModel" required
+          placeholder="email"></ion-input>
+
+      </ion-item>
+      <ion-text class="errorMsg" color="danger" *ngIf="!emailCtrl.valid && emailCtrl.touched">
+        <p>* Please enter a valid email address</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="call" slot="start" color="primary"></ion-icon>
+
+        <ion-input type="tel" name="phone" ngModel #phoneCtrl="ngModel" required placeholder="phone number" required
+          minlength="10" maxlength="10"></ion-input>
+      </ion-item>
+
+      <ion-text class="errorMsg" color="danger" *ngIf="!phoneCtrl.valid && phoneCtrl.touched">
+        <p>* please enter a valid phone number</p>
+      </ion-text>
+
+
+      <ion-item class="ion-margin-bottom">
+        <ion-icon name="key" slot="start" color="primary"></ion-icon>
+
+        <ion-input type="password" name="password" ngModel #passwordCtrl="ngModel" required placeholder="password"
+          required minlength="5"></ion-input>
+      </ion-item>
+
+      <ion-text class="errorMsg" color="danger" *ngIf="!passwordCtrl.valid && passwordCtrl.touched">
+        <p>* Password must of 8 character long</p>
+      </ion-text>
+
+    
+      <!-- <ion-text class="errorMsg" color="danger" *ngIf="!c_passwordCtrl.valid && c_passwordCtrl.touched">
+        <p>*confirm password must be of 8 character long</p>
+      </ion-text>
+
+      <ion-text class="errorMsg" color="danger" *ngIf="!c_passwordCtrl.valid && c_passwordCtrl.value !== passwordCtrl.value">
+        <p>*confirm password must be of 8 character long</p>
+      </ion-text> -->
+
+    </ion-list>
+
+    <ion-list lines="none">
+      <ion-list-header>
+        <ion-label>Restuarant Details</ion-label>
+      </ion-list-header>
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input type="text" name="res_name" ngModel #res_name="ngModel" required placeholder="name"></ion-input>
+
+      </ion-item>
+      <ion-text class="errorMsg" color="danger" *ngIf="!res_name.valid && res_name.touched">
+        <p>* Please enter a restuarant name</p>
+      </ion-text>
+
+
+      <ion-item color="light" class="ion-margin-bottom">
+       
+        <ion-textarea type="text" name="description"  ngModel #descriptionCtrl="ngModel" 
+          placeholder="Enter Restuarant Description"></ion-textarea>
+
+      </ion-item>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-label>Open Time</ion-label>
+        <ion-datetime
+          name="openTime"
+          ngModel
+          #openTime="ngModel"
+          required
+          presentation="time">
+        </ion-datetime>
+      </ion-item>
+      <ion-text color="danger" *ngIf="!openTime.valid && openTime.touched" class="ion-text-center">
+        <p class="errorMsg">* Select Opening Time.</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-label>Close Time</ion-label>
+        <ion-datetime
+          name="closeTime"
+          ngModel
+          #closeTime="ngModel"
+          required
+          presentation="time">
+        </ion-datetime>
+      </ion-item>
+      <ion-text color="danger" *ngIf="!closeTime.valid && closeTime.touched" class="ion-text-center">
+        <p class="errorMsg">* Select Closing Time.</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+       <ion-label>City</ion-label>
+      
+        <ion-select 
+         name="city" 
+         ngModel
+          #city="ngModel"
+           required
+          >
+        <ion-select-option class="ion-float-right" *ngFor="let city of cities" [value]="city._id">{{city.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-text class="errorMsg" color="danger" *ngIf="!city.valid && city.touched">
+        <p>* Please select a city</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-label>Address</ion-label>
+       
+        <p class="ion-text" *ngIf="location && location?.lat">{{location?.address}}</p>
+        <ion-button color="primary" size="small" (click)="searchLocation()">Search</ion-button> 
+      </ion-item>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="cash-outline" slot="start" color="primary"></ion-icon>
+        <ion-input
+         type="number"
+          name="price"
+           ngModel
+            #price="ngModel"
+             required
+              placeholder="price">
+            </ion-input>
+
+      </ion-item>
+      <ion-text class="errorMsg" color="danger" *ngIf="!price.valid && price.touched">
+        <p>* Please enter a price for two person</p>
+      </ion-text>
+
+      <ion-item color="light" class="ion-margin-bottom">
+        <ion-icon name="time-outline" slot="start" color="primary"></ion-icon>
+        <ion-input
+         type="number"
+          name="delivery_time"
+           ngModel
+            #delivery_time="ngModel"
+             required
+              placeholder="Enter expected delivery time.">
+            </ion-input>
+
+      </ion-item>
+      <ion-text class="errorMsg" color="danger" *ngIf="!delivery_time.valid && delivery_time.touched">
+        <p>* Please Enter expected delivery time.</p>
+      </ion-text>
+
+      <ion-item class="ion-margin-top">
+        <ion-label>
+          Cover Image
+          <p>
+          <input type="file" (change)="preview($event)">
+        </p>
+        </ion-label>
+        <ion-thumbnail *ngIf="coverImage" slot="end">
+          <img  [src]="coverImage">
+        </ion-thumbnail>
+      </ion-item>
+
+      <ion-item color="light" lines="full">
+        <ion-input   name="category" [(ngModel)]="category"></ion-input>
+        <ion-toggle slot="end" mode="md" color="success" name="isCuisine" [(ngModel)]="isCuisine"></ion-toggle>
+      </ion-item>
+
+      <ion-button type="button" size="small" (click)="addCategory()" color="primary">Add Category</ion-button>
+      <ion-button type="button" size="small" (click)="clearCategory()" color="primary">Clear</ion-button>
+      <p *ngIf="categories?.length >0" >Categories :{{getArrayAsString(categories)}}</p>
+      <p *ngIf="cuisines?.length >0" >Cuisines :{{getArrayAsString(cuisines)}}</p>
+
+    </ion-list>
+   
+
+    <ion-button 
+    *ngIf="!isLoading" 
+     [disabled]="!f1.valid"
+     expand="block" 
+     color="primary" 
+     type="submit" 
+     shape="round">
+      Save
+    </ion-button>
+
+    <div class="ion-text-center" *ngIf="isLoading">
+
+      <ion-button shape="round"
+      [disabled]="!f1.valid"
+       >
+        <ion-spinner name="circles"></ion-spinner>
+      </ion-button>
+    </div>
+  </form>
+
+</ion-content>  

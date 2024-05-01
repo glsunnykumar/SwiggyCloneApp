@@ -18,36 +18,35 @@ import { LocationService } from 'src/app/services/location/location.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit,OnDestroy {
+export class HomePage implements OnInit, OnDestroy {
   banners: any[];
   restaurants: Restaurant[] = [];
   isLoading: boolean = false;
   location = {} as Address;
-  addressSub : Subscription;
+  addressSub: Subscription;
 
   constructor(
     private apiService: ApiService,
     private addService: AddressService,
     private global: GlobalService,
-    private locationService :LocationService,
-    private route :Router,
-    private mapService :GoogleMapsService
+    private locationService: LocationService,
+    private route: Router,
+    private mapService: GoogleMapsService
   ) {}
   ngOnDestroy() {
-    if(this.addressSub) this.addressSub.unsubscribe();
+    if (this.addressSub) this.addressSub.unsubscribe();
   }
 
   ngOnInit() {
-    this.addressSub =  this.addService.changeAddress.subscribe(
+    this.addressSub = this.addService.changeAddress.subscribe(
       (address) => {
         if (address && address?.lat) {
           if (!this.isLoading) this.isLoading = true;
           this.location = address;
           this.nearByApi();
-        }
-        else{
-          if(address &&(!this.location || !this.location?.lat)){
-            this.searchLocation('home','home-modal')
+        } else {
+          if (address && (!this.location || !this.location?.lat)) {
+            this.searchLocation('home', 'home-modal');
           }
         }
       },
@@ -59,32 +58,35 @@ export class HomePage implements OnInit,OnDestroy {
     );
     this.isLoading = true;
     this.getBanner();
-    if(!this.location?.lat){
+    if (!this.location?.lat) {
       this.getNearbyResutrant();
     }
-    // setTimeout(() => {
-    
-    //   this.restaurants = this.apiService.restaurants;
-
-    //   this.isLoading = false;
-    // }, 5000);
   }
 
-  getBanner(){
-    this.banners = this.apiService.banners;
+  getBanner() {
+    // this.banners = this.apiService.banners;
+
+    this.apiService
+      .getBanner()
+      .then((data) => {
+        this.banners = data;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
-  async getNearbyResutrant(){
-    try{
-      const position =await this.locationService.getCurrentLocation();
-      const {latitude,longitude} = position.coords;
-      const address= await this.mapService.getAddress(latitude,longitude);
-      if(address){
+  async getNearbyResutrant() {
+    try {
+      const position = await this.locationService.getCurrentLocation();
+      const { latitude, longitude } = position.coords;
+      const address = await this.mapService.getAddress(latitude, longitude);
+      if (address) {
         const loc = {
           title: address.address_components[0].short_name,
           address: address.formatted_address,
-          lat :latitude,
-          lng :longitude
+          lat: latitude,
+          lng: longitude,
         };
 
         this.location = new Address(
@@ -93,91 +95,82 @@ export class HomePage implements OnInit,OnDestroy {
           address.address_components[0].short_name,
           address.formatted_address,
           '',
-          '',
           latitude,
           longitude
         );
         await this.getData();
       }
       this.isLoading = false;
-    }
-    catch(e){
+    } catch (e) {
       console.log(e);
       this.isLoading = false;
-      this.searchLocation('home','home-modal');
+      this.searchLocation('home', 'home-modal');
     }
+  }
+
+  async getData() {
+    try {
+      this.restaurants = [];
+       await this.addService.checkAddressExit(this.location);
+    } catch (e) {
+      console.log(e);
+      this.global.errorToast();
+    }
+  }
+
+  async nearByApi() {
+    try {
+      this.isLoading = false;
+      this.restaurants =await this.apiService.getNearByRestuarant(this.location.lat,this.location.lng);
      
-  }
-  
-  async getData(){
-    try{
-     this.restaurants =[];
-     //const address = await this.addService.checkAddressExit(lat , lng);
-     const address = await this.addService.checkAddressExit(this.location);
-     // if(!address)
-    //  await this.nearByApi();
-    }
-    catch(e){
-    console.log(e);
-    this.global.errorToast();
+    } catch (e) {
+      console.log(e);
+      this.global.errorToast();
     }
   }
 
-
-  nearByApi(){
-    this.isLoading = false;
-   this.restaurants = this.apiService.restaurants;
-  }
-
-  async  searchLocation(prop,classname?){
-    console.log('search location',prop);
-    try{
-      const options ={
-        component : SearchLocationComponent,
-        cssClass :classname? classname :'',
-        backdropDismiss : prop=='select-place'?true : false,
-        componentProps :{
-          from :prop
+  async searchLocation(prop, classname?) {
+    try {
+      const options = {
+        component: SearchLocationComponent,
+        cssClass: classname ? classname : '',
+        backdropDismiss: prop == 'select-place' ? true : false,
+        componentProps: {
+          from: prop,
+        },
+      };
+      const model = await this.global.createModal(options);
+      if (model) {
+        if (model == 'add') {
+          this.addAddress(this.location);
+        } else if (model == 'select') {
+          this.searchLocation('select-place');
+        } else {
+          this.location = model;
+          await this.getData();
         }
       }
-     const model =  await this.global.createModal(options);
-     if(model){
-       console.log('modal' , model);
-       if(model == 'add'){
-        this.addAddress(this.location);
-       }
-       else if(model == 'select')
-       {
-          this.searchLocation('select-place');
-       }
-       else{
-        console.log('new place is selected',model)
-        this.location = model;
-        await this.getData()
-       }
-     }
-    }
-    catch(e){
-      
-    }
+      else{
+        if(!this.location || !this.location?.lat)
+        this.searchLocation('Home','home-modal');
+      }
+    } catch (e) {}
   }
 
-  addAddress(val?){
-    let navdata :NavigationExtras;
-    if(val){
-      val.from ='home';
+  addAddress(val?) {
+    let navdata: NavigationExtras;
+    if (val) {
+      val.from = 'home';
     } else {
-      val ={
-        from  : 'home'
+      val = {
+        from: 'home',
       };
     }
-    navdata ={
-      queryParams :{
-        data :JSON.stringify(val)
-      }
-    }
-    console.log('navdata' , navdata);
-   this.route.navigate(['/','tabs','address','edit-address'],navdata);
+    navdata = {
+      queryParams: {
+        data: JSON.stringify(val),
+      },
+    };
+    this.route.navigate(['/', 'tabs', 'address', 'edit-address'], navdata);
   }
-
 }

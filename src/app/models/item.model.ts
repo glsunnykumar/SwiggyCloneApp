@@ -2,7 +2,7 @@ export class Item {
     
     constructor(
         public id: string,
-        public category_id: string,
+        public category_id: any,
         public uid: string,
         public cover: string,
         public name: string,

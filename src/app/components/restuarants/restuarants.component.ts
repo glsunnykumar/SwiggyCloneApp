@@ -9,13 +9,18 @@ import { Restaurant } from 'src/app/models/restaurant.model';
 export class RestuarantsComponent  implements OnInit {
 
   @Input() restuarants : Restaurant;
+  fallbackImage ='assests/img/1.jpg';
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {  
   }
 
   getCuisine(cuisine){
     return cuisine.join(', ');
+  }
+
+  onImgError(event){
+    event.target.src = this.fallbackImage;
   }
 
 }

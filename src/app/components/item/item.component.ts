@@ -12,6 +12,8 @@ export class ItemComponent  implements OnInit {
   @Input() index;
   @Output() add :EventEmitter<Item>=new EventEmitter();
   @Output() minus :EventEmitter<Item>=new EventEmitter();
+
+  fallbackImage ='assests/img/1.jpg';
   constructor() { }
 
   ngOnInit() {}

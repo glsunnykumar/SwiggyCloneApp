@@ -20,6 +20,10 @@ export class SignupPage implements OnInit {
   ngOnInit() {
   }
 
+
+  navigate(url){
+    this.router.navigateByUrl(url);
+  }
   onSubmit(form :NgForm){
    if(!form.valid)return;
    this.register(form);
@@ -27,8 +31,11 @@ export class SignupPage implements OnInit {
 
   register(form){
     this.isLoading = true;
-    this.authService.register(form.value).then(data=>{
-      this.router.navigateByUrl('/tabs');
+    this.authService.register(form.value).then((data :any)=>{
+      let url ='/tabs';
+      if(data?.type =='admin') url='/admin';
+      this.navigate(url);
+     
       this.isLoading = false;
       form.reset();
     }).catch(e =>{

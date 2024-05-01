@@ -63,7 +63,6 @@ export class SearchLocationComponent  implements OnInit ,OnDestroy {
   }
 
   async onSearchChange(event){
-    
       console.log(event);
       this.global.showLoader();
       this.query = event.detail.value;

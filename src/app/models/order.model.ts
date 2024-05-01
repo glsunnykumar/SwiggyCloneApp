@@ -15,7 +15,7 @@ export class Order {
         public time: string,
         public paid: string,
         public id?: string,
-        public user_id?: string,
+        public uid?: string,
         public instruction?: string,
     ) {}
 }

@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'SwiggyCloneApp',
+  appId: 'com.brothers.sakohFoodApp',
+  appName: 'Sakoh Food',
   webDir: 'www',
   server: {
     androidScheme: 'https'

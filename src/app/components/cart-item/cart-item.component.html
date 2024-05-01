@@ -3,9 +3,9 @@
     <span class="dotStyle">&#9679;</span>
   </ion-text>
   <ion-label class="ion-text-wrap">
-    <h5>{{item?.name}}</h5>
+    {{item?.name}}
   </ion-label>
-  <ion-row class="ion-margin-end">
+  <ion-row >
     <ion-icon class="success" name="remove-outline" (click)="quantityMinus()"></ion-icon>
     <ion-text class="ion-text-center quantity" color="success">{{item?.quantity}}</ion-text>
     <ion-icon class="success" name="add-outline" (click)="quantityPlus()"></ion-icon>

@@ -10,6 +10,7 @@ export class Cart {
         public totalPrice?: number,
         public grandTotal?: number,
         public location?: Address,
-        public deliveryCharge?: number
+        public deliveryCharge?: number,
+        public from? : string
     ) {}
 }

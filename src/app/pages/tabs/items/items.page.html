@@ -23,13 +23,13 @@
   <app-loading-restuarants *ngIf="isLoading"></app-loading-restuarants>
   <app-empty-screen [model]="model" *ngIf="!isLoading && categories?.length ===0"></app-empty-screen>
   <ion-list lines="none" *ngFor="let category of categories">
-    <ion-list-header>
+    <ion-list-header *ngIf="checkItemCategory(category.id)">
       {{category?.name}}
     </ion-list-header>
 
     <ng-container *ngFor="let item of items;let i=index">
       <app-item 
-      *ngIf="category.id === item.category_id" 
+      *ngIf="category.id === item.category_id.id" 
       [item]="item" 
       [index]="i" 
       (add)="quantityPlus($event)"

@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>add-banner</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+ 
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">add-banner</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list lines="none">
+    <ion-item>
+      <input type="file" (change)="preview($event)">
+      <img *ngIf="bannerImage" [src]="bannerImage">
+    </ion-item>
+  </ion-list>
+
+  <ion-button  class="ion-margin" expand="block" color="primary" (click)="addBanner()">Save</ion-button>
+
+</ion-content>

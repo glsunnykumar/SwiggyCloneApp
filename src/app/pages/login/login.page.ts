@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GlobalService } from 'src/app/services/global/global.service';
@@ -21,38 +22,32 @@ export class LoginPage implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.isLoggedIn();
   }
 
   changeType(){
     this.type = !this.type;
       }
 
-  onSubmit(form){
-    console.log(form);
+  onSubmit1(form :NgForm){
+  
    if(!form.valid) return;
    this.login(form)
   }
 
-  isLoggedIn(){
-    try{
-    this.global.showLoader();
-    const val=  this.authService.getId();
-    if(val) this.navigate();
-    this.global.hideLoader();
-    }
-    catch(e){
-      console.log(e);
-      this.global.hideLoader();
-    }
-  }
+  onSubmit(form :NgForm){
+    console.log('form value');
+    if(!form.valid) return;
+   // this.login(form)
+   }
+
+ 
 
   login(form){
     this.isLogin = true;
     this.authService.login(form.value.email,form.value.password).then(data=>{
-     this.navigate();
-      this.isLogin = false;
-      form.reset();
+    this.navigate(data);
+    this.isLogin = false;
+    form.reset();
     })
     .catch(e =>{
       console.log(e);
@@ -68,8 +63,10 @@ export class LoginPage implements OnInit {
     })
   }
 
-  navigate(){
-    this.router.navigateByUrl('/tabs');
+  navigate(data :any){
+    let url ='/tabs';
+    if(data =='admin') url ='admin';
+    this.router.navigateByUrl(url);
   }
  
 

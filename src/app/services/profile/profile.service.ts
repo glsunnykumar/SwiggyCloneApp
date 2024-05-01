@@ -22,9 +22,9 @@ export class ProfileService {
  async getProfile(){
   try{
     const uid = await this.authService.getId();
-  
+    //let profile: any = await (await (this.apiService.collection('users').doc(uid).get().toPromise())).data();
     let profile: any = await (await (this.apiService.collection('user').doc(uid).get().toPromise())).data();
-  
+    console.log('profile data' , profile);
     const data = new User(
       profile.email,
       profile.phone,

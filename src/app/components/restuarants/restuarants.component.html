@@ -1,7 +1,7 @@
 
   <ion-item lines="none">
     <ion-thumbnail slot="start">
-      <img [src]="restuarants?.cover ? restuarants.cover :'assets/imgs/2.jpg'" />
+      <img [src]="restuarants?.cover ? restuarants.cover : fallbackImage"  (error)="onImgError($event)" />
     </ion-thumbnail>
     <ion-label>
       <h4>{{restuarants.name}}</h4>
@@ -10,7 +10,7 @@
           {{getCuisine(restuarants?.cuisines)}}
         </p>
         <ion-text color="dark">
-          <span>
+          <span *ngIf="restuarants?.rating>0">
             <ion-icon name="star"></ion-icon>
             {{restuarants?.rating}}.
           </span>
