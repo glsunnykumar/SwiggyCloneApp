@@ -168,12 +168,16 @@ export class CartPage implements OnInit ,OnDestroy {
          }
         
          console.log('data',data);
-         await this.orderService.placeOrder(data);
-         //clear cart
-         this.cartService.clearCart();
-         this.model ={};
-         this.globalService.successToast('Your Order is Placed');
-         this.navCntrl.navigateRoot(['tabs/account']);
+         await this.cartService.saveCartOrder(data);
+         console.log(this.url);
+        this.router.navigate([this.router.url,'payment-option']);
+        // console.log('after router navigation');
+        //  await this.orderService.placeOrder(data);
+        //  //clear cart
+        //  this.cartService.clearCart();
+        //  this.model ={};
+        //  this.globalService.successToast('Your Order is Placed');
+         //this.navCntrl.navigateRoot(['tabs/account']);
     }
     catch(e){
       console.log(e);

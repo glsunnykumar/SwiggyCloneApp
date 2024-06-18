@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GlobalService } from 'src/app/services/global/global.service';
@@ -9,7 +9,7 @@ import { ProfileService } from 'src/app/services/profile/profile.service';
   templateUrl: './admin.page.html',
   styleUrls: ['./admin.page.scss'],
 })
-export class AdminPage implements OnInit {
+export class AdminPage implements OnInit,OnDestroy {
 
   constructor(
     private navCtrl :NavController,
@@ -19,6 +19,7 @@ export class AdminPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.global.customStatusbar(true);
   }
 
   logout(){
@@ -33,6 +34,10 @@ export class AdminPage implements OnInit {
       this.global.errorToast('Logout failed ? Check your internet connection');
     })
     ;
+  }
+
+  ngOnDestroy(): void {
+    this.global.customStatusbar(false);
   }
 
 }

@@ -46,14 +46,6 @@ export class AddressService {
             let itemData = await data.docs.map((element) => {
               let item = element.data();
               item.id = element.id;
-              // console.log('item',item);
-              // item.category_id.get()
-              // .then(cData =>{
-              //   item.category_id = cData.data();
-              // })
-              // .catch(e =>{
-              //  throw(e);
-              // })
               return item;
             });
             console.log('itemData', itemData);

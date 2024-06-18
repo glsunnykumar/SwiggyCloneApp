@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { map, switchMap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { HttpService } from '../http/http.service';
 
 
 @Injectable({
@@ -24,7 +24,7 @@ export class GoogleMapsService {
   }
   googleMaps :any;
 
-  constructor(private http: HttpClient,
+  constructor(private http: HttpService,
     private zone :NgZone
     ) {}
 
@@ -69,7 +69,7 @@ export class GoogleMapsService {
 
   async getAddress(lat: number, lng: number): Promise<any> {
     return await new Promise((resolve, reject) => {
-        this.http.get<any>(
+        this.http.get(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${environment.googleMapsApiKey}`
         )
         .pipe(

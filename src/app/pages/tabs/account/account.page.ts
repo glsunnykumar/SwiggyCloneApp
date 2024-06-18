@@ -55,6 +55,14 @@ export class AccountPage implements OnInit,OnDestroy {
     this.getData();
   }
 
+  ionViewDidEnter(){
+    this.global.customStatusbar(true);
+  }
+
+  ionViewDidLeave(){
+    this.global.customStatusbar();
+  }
+
   async getData(){
     this.isLoading = true;
     await this.profileService.getProfile();

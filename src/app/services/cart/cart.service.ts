@@ -7,6 +7,7 @@ import { Order } from 'src/app/models/order.model';
 import { Restaurant } from 'src/app/models/restaurant.model';
 import { GlobalService } from '../global/global.service';
 import { StorageService } from '../storage/storage.service';
+import { Strings } from 'src/app/enum/strings';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,11 @@ export class CartService {
   ) { }
 
   getCart() {
-    return this.storage.getStorage('cart');
+    return this.storage.getStorage(Strings.CART_STORAGE);
+  }
+
+  getCartOrder(){
+    return this.storage.getStorage(Strings.CART_ORDER);
   }
 
   async getCartData(val?) {
@@ -117,7 +122,7 @@ export class CartService {
         if(this.model.from)this.model.from ='';
       }
       else{
-        this.model.from ='cart';
+        this.model.from =Strings.CART_STORAGE;
       }
       if(this.model.items[index].quantity && this.model.items[index].quantity !== 0) {
         this.model.items[index].quantity -= 1; // this.model.items[index].quantity = this.model.items[index].quantity - 1
@@ -159,15 +164,22 @@ export class CartService {
 
   async clearCart() {
     this.global.showLoader();
-    await this.storage.removeStorage('cart');
+    await this.storage.removeStorage(Strings.CART_STORAGE);
     this._cart.next(null);
     this.global.hideLoader();
   }
 
+  async clearCartOrder(){
+    await this.storage.removeStorage(Strings.CART_ORDER);
+  }
+
   saveCart(model?) {
     if(model) this.model = model;
-    this.storage.setStorage('cart', JSON.stringify(this.model));
-    // this._cart.next(this.model);
+    this.storage.setStorage(Strings.CART_STORAGE, JSON.stringify(this.model));
+  }
+
+  saveCartOrder(model){
+    this.storage.setStorage(Strings.CART_ORDER, JSON.stringify(this.model));
   }
 
   deg2rad(deg){

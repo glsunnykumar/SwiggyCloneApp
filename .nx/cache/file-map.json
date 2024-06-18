@@ -18,7 +18,8 @@
     "@capacitor/haptics": "5.0.6",
     "@capacitor/keyboard": "5.0.6",
     "@capacitor/preferences": "^5.0.6",
-    "@capacitor/status-bar": "5.0.6",
+    "@capacitor/splash-screen": "^5.0.4",
+    "@capacitor/status-bar": "^5.0.2",
     "@googlemaps/js-api-loader": "^1.16.6",
     "@ionic/angular": "^7.0.0",
     "geofirestore": "^5.2.0",
@@ -86,7 +87,7 @@
       },
       {
         "file": ".nx/cache/file-map.json",
-        "hash": "13024256760789961627"
+        "hash": "5401084708956568062"
       },
       {
         "file": ".nx/cache/file-map.json~00c68150",
@@ -354,15 +355,15 @@
       },
       {
         "file": ".nx/cache/lockfile.hash",
-        "hash": "618052058884421307"
+        "hash": "9134828551404318764"
       },
       {
         "file": ".nx/cache/parsed-lock-file.json",
-        "hash": "15186272394605632670"
+        "hash": "16901636613678747856"
       },
       {
         "file": ".nx/cache/project-graph.json",
-        "hash": "1805599739754817182"
+        "hash": "10072409232300830415"
       },
       {
         "file": ".nx/cache/project-graph.json~00f5476d",
@@ -790,7 +791,7 @@
       },
       {
         "file": "android/app/capacitor.build.gradle",
-        "hash": "399914392352114486"
+        "hash": "4865514837417329441"
       },
       {
         "file": "android/app/proguard-rules.pro",
@@ -802,7 +803,7 @@
       },
       {
         "file": "android/app/src/main/AndroidManifest.xml",
-        "hash": "15143078514206279353"
+        "hash": "15474918271655356197"
       },
       {
         "file": "android/app/src/main/java/com/brothers/sakohFoodApp/MainActivity.java",
@@ -954,11 +955,11 @@
       },
       {
         "file": "android/build.gradle",
-        "hash": "15247024166514751308"
+        "hash": "5528629273169236741"
       },
       {
         "file": "android/capacitor.settings.gradle",
-        "hash": "10939028783378998900"
+        "hash": "8171326013549948801"
       },
       {
         "file": "android/gradle/wrapper/gradle-wrapper.jar",
@@ -986,7 +987,7 @@
       },
       {
         "file": "android/variables.gradle",
-        "hash": "9467210284462474397"
+        "hash": "17729595100321137197"
       },
       {
         "file": "angular.json",
@@ -994,7 +995,7 @@
       },
       {
         "file": "capacitor.config.ts",
-        "hash": "7342098785505741732"
+        "hash": "8737592217048006299"
       },
       {
         "file": "firebase.json",
@@ -1030,11 +1031,11 @@
       },
       {
         "file": "package-lock.json",
-        "hash": "3797693437972284135"
+        "hash": "144312974848605036"
       },
       {
         "file": "package.json",
-        "hash": "17719578882180043716"
+        "hash": "17664707308866242739"
       },
       {
         "file": "src/app/app-routing.module.ts",
@@ -1054,7 +1055,7 @@
       },
       {
         "file": "src/app/app.component.ts",
-        "hash": "3298285516620454244"
+        "hash": "6026901943705419466"
       },
       {
         "file": "src/app/app.module.ts",
@@ -1382,7 +1383,7 @@
       },
       {
         "file": "src/app/pages/admin/admin.page.ts",
-        "hash": "1655760464486705487"
+        "hash": "506571666182341766"
       },
       {
         "file": "src/app/pages/login/forgot-password/forgot-password-routing.module.ts",
@@ -1478,7 +1479,7 @@
       },
       {
         "file": "src/app/pages/tabs/account/account.page.ts",
-        "hash": "1689394617150532692"
+        "hash": "9848992658363742778"
       },
       {
         "file": "src/app/pages/tabs/address/address-routing.module.ts",
@@ -1502,7 +1503,7 @@
       },
       {
         "file": "src/app/pages/tabs/address/address.page.ts",
-        "hash": "14371005511491566729"
+        "hash": "6767200863153480497"
       },
       {
         "file": "src/app/pages/tabs/address/edit-address/edit-address-routing.module.ts",
@@ -1686,7 +1687,7 @@
       },
       {
         "file": "src/app/services/global/global.service.ts",
-        "hash": "13466304119289336795"
+        "hash": "5445206040671153407"
       },
       {
         "file": "src/app/services/google-maps/google-maps.service.spec.ts",
@@ -1802,7 +1803,7 @@
       },
       {
         "file": "src/theme/variables.scss",
-        "hash": "869882932569298074"
+        "hash": "9064709867434862324"
       },
       {
         "file": "src/zone-flags.ts",

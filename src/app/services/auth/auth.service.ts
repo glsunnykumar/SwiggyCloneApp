@@ -4,7 +4,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from 'src/app/models/user.model';
 import { ApiService } from '../api/api.service';
 import { Strings } from 'src/app/enum/strings';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, map } from 'rxjs';
+import { HttpService } from '../http/http.service';
+import { environment } from 'src/environments/environment';
 
 export class AuthUserId{
   constructor(public uid: string){
@@ -31,7 +33,8 @@ export class AuthService {
   constructor(
     private storage: StorageService,
     private fireAuth: AngularFireAuth,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private http :HttpService
   ) {}
 
   async checkAuth(){
@@ -140,6 +143,37 @@ export class AuthService {
     } catch (e) {
       console.log('throwing registered email id erro');
       throw e;
+    }
+  }
+  async createUser(formValue , type)  {
+    try{
+     const response$ = this.http.post(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebase.apiKey}`, 
+      {
+        email: formValue.email,
+        password: formValue.password
+        // returnSecureToken: true
+      }
+    );
+    const response = await lastValueFrom(response$);
+    const uid = response.localId;
+    const data = new User(
+      formValue.email,
+      formValue.phone,
+      uid,
+      formValue.name,
+      type,
+      'active'
+    );
+    await this.apiService.setDocument(`users/${uid}`,Object.assign({},data));
+    const userData ={
+      id:uid,
+      type
+    };
+    return userData;
+    }
+    catch(e){
+      throw(e);
     }
   }
 

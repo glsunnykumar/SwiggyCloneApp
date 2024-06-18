@@ -70,7 +70,8 @@ export class AddRestuarantPage implements OnInit {
   async addRestaurant(form :NgForm){
    try{
    this.isLoading = true;
-   const data = await this.authService.register(form.value,'restaurant');
+  //  const data = await this.authService.register(form.value,'restaurant');
+  const data = await this.authService.createUser(form.value, 'restaurant');
    if(data?.id){
    const position = new firebase.firestore.GeoPoint(this.location.lat,this.location.lng);
    const restaurant = new Restaurant(

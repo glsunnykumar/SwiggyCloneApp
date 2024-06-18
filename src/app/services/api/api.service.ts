@@ -9,6 +9,11 @@ import { switchMap } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import * as geofirestore from 'geofirestore';
+import { 
+  addDoc, collection, collectionData, deleteDoc, doc, endAt, 
+  Firestore, getDoc, getDocs, limit, orderBy, query, setDoc, 
+  startAt, updateDoc, where 
+} from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +31,11 @@ export class ApiService {
     return  this.adb.collection(path,querFunc);
   }
 
+  docRef(path) {
+    return doc(this.firestore, path);
+  }
+
+
   geoCollection(path){
     return this.GeoFirestore.collection(path);
   }
@@ -33,6 +43,11 @@ export class ApiService {
   randomString(){
     const id= Math.floor(1000000 + Math.random() * 900000);
     return id.toString();
+  }
+
+  setDocument(path,data){
+    const dataRef = this.docRef(path);
+    return setDoc(dataRef,data);
   }
 
   async addBanner(data){
@@ -161,6 +176,11 @@ export class ApiService {
      console.log(e);
     }
  }
+
+ getDocById(path) {
+  const dataRef = this.docRef(path);
+  return getDoc(dataRef);
+}
 
  //restuatant
 

@@ -31,6 +31,7 @@ export class AddressPage implements OnInit,OnDestroy {
     if(this.addressSub){
       this.addressSub.unsubscribe();
     }
+    this.globalService.customStatusbar(true);
   }
 
   ngOnInit() {
@@ -53,6 +54,10 @@ export class AddressPage implements OnInit,OnDestroy {
 
   getIcon(title){
    return this.globalService.getIcon(title);
+  }
+
+  ionViewDidEnter(){
+    this.globalService.customStatusbar(true);
   }
 
   editAddress(address){

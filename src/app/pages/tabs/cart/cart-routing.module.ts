@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'address',
     loadChildren: () => import('../../../pages/tabs/address/address.module').then( m => m.AddressPageModule)
   },
+  {
+    path: 'payment-option',
+    loadChildren: () => import('./payment-options/payment-options.module').then( m => m.PaymentOptionsPageModule)
+  },
 ];
 
 @NgModule({

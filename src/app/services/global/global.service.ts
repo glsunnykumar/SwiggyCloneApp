@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { Capacitor } from '@capacitor/core';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { AlertController, LoadingController, ModalController, ToastController, isPlatform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +99,18 @@ export class GlobalService {
       case 'work': return 'briefcase-outline';
       default: return 'location-outline';
     }
+  }
+
+  checkPlatformForWeb(){
+    if(Capacitor.getPlatform()=='web')return true;
+    return false;
+  }
+
+  async customStatusbar(primaryColor? : boolean){
+   if(!this.checkPlatformForWeb()){
+    await StatusBar.setStyle({style :primaryColor ?Style.Dark :Style.Light});
+    if(isPlatform('android')) await StatusBar.setBackgroundColor({color : primaryColor? '#f81027' :'#ffffff'})
+   }
   }
 
 

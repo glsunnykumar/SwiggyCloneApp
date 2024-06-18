@@ -1882,13 +1882,22 @@
         "hash": "sha512-aDe4wGTVSAIue6XXdUFgyz7SGszxK/Ptt/iWTydMpzc1PlZXw1XTTnciM+S+SLLNZFzXlkpXT3wMnh9t0DojUA=="
       }
     },
+    "npm:@capacitor/splash-screen": {
+      "type": "npm",
+      "name": "npm:@capacitor/splash-screen",
+      "data": {
+        "version": "5.0.4",
+        "packageName": "@capacitor/splash-screen",
+        "hash": "sha512-gWV6mSIDyT+4oSC7NKvCSHdBhDIZi8JK7xS/iknkL8bLTZp6/My/vvA+67fRNvmELzGrk3MmbGhLdLoLnsd5dA=="
+      }
+    },
     "npm:@capacitor/status-bar": {
       "type": "npm",
       "name": "npm:@capacitor/status-bar",
       "data": {
-        "version": "5.0.6",
+        "version": "5.0.2",
         "packageName": "@capacitor/status-bar",
-        "hash": "sha512-7od8CxsBnot1XMK3IeOkproFL4hgoKoWAc3pwUvmDOkQsXoxwQm4SR9mLwQavv1XfxtHbFV9Ukd7FwMxOPSViw=="
+        "hash": "sha512-5emXUQzx9WnQHnxzapghrqm8P80z7IPLM83PTsfN+NOkm3uw3ZOxB4T7qy9NBV2Zp+GCEpr1UrNBowxV7Ami3Q=="
       }
     },
     "npm:@colors/colors": {
@@ -15647,6 +15656,13 @@
     "npm:@capacitor/preferences": [
       {
         "source": "npm:@capacitor/preferences",
+        "target": "npm:@capacitor/core",
+        "type": "static"
+      }
+    ],
+    "npm:@capacitor/splash-screen": [
+      {
+        "source": "npm:@capacitor/splash-screen",
         "target": "npm:@capacitor/core",
         "type": "static"
       }

@@ -3,6 +3,10 @@ import { BehaviorSubject, switchMap } from 'rxjs';
 import { Order } from 'src/app/models/order.model';
 import { ApiService } from '../api/api.service';
 import { AuthService } from '../auth/auth.service';
+import { GlobalService } from '../global/global.service';
+import { StorageService } from '../storage/storage.service';
+import { Strings } from 'src/app/enum/strings';
+import { Cart } from 'src/app/models/cart.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +14,12 @@ import { AuthService } from '../auth/auth.service';
 export class OrderService {
 
   private _orders = new BehaviorSubject<Order[]>([]);
+  private _cart = new BehaviorSubject<Cart>(null);
   uid : string;
 
+  get cart(){
+    return this._cart.asObservable();
+  }
 
   get orders() {
     return this._orders.asObservable();
@@ -26,7 +34,11 @@ export class OrderService {
     return this.api.collection('orders').doc(this.uid).collection('all');
   }
 
-  constructor(private auth:AuthService, private api: ApiService) { }
+  constructor(private auth:AuthService, 
+    private api: ApiService,
+    private global :GlobalService,
+    private storage :StorageService
+  ) { }
 
   getRadius(){
     return this.api.radius;
@@ -58,6 +70,14 @@ export class OrderService {
     } catch(e) {
       throw(e);
     }
+  }
+
+  async clearCart(){
+    this.global.showLoader();
+    await this.storage.removeStorage(Strings.CART_STORAGE);
+    await this.storage.removeStorage(Strings.CART_ORDER);
+    this._cart.next(null);
+    this.global.hideLoader();
   }
 
   async placeOrder(param) {

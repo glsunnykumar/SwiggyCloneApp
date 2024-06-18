@@ -15,6 +15,17 @@ export const environment = {
     },
   
   googleMapsApiKey :'AIzaSyC33PZwVpqG0FNCY9X1bP5m-RC1AHFOzmE',
+  // razorpay :{
+  //   key_id :'rzp_test_5vgTDZpNy0qhfm',
+  //   key_secret:'yZyaoBgo9buckzYdGAK0GAxo'
+  // },
+  stripe: {
+    publishableKey: '',
+    secretKey: '',
+    api :''
+  },
+
+  
 };
 
 /*
